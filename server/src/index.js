@@ -4,7 +4,9 @@ const app = express();
 
 dotenv.config();
 
-const PORT = process.env.PORT || 4000
+import dbConnect from './db/config.js'
+
+const PORT = process.env.PORT
 
 const data = [
     {
@@ -14,6 +16,8 @@ const data = [
         "Project Priority": "High",
     }
 ]
+
+dbConnect();
 
 app.get('/', (req, res) => {
     res.json(data);
