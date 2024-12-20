@@ -77,8 +77,16 @@ userSchema.methods.generateAccessToken = function () {
         }
     )
 }
-userSchema.methods.refressAccessToken = function () {}
-
-
+userSchema.methods.refressAccessToken = function () {
+    return jwt.sign(
+        {
+            _id: this._id
+        },
+        process.env.REFRESH_TOKEN_SCRETE,
+        {
+            expiresIn: process.env.REFRESH_TOKEN_EXPIRY
+        }
+    )
+}
 
 const User = mongoose.model("User", userSchema);   
