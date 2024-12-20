@@ -1,21 +1,25 @@
-import dotenv from 'dotenv'
-import express from 'express'
+import dotenv from 'dotenv';
+import express from 'express';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+
 const app = express();
-
 dotenv.config();
-
 import dbConnect from './db/config.js'
+import data from '../data.js';
 
 const PORT = process.env.PORT
 
-const data = [
-    {
-        "Project Name": "Social Media Application",
-        "Project Description": "This is a backend project for a web application.",
-        "Project Status": "In Progress",
-        "Project Priority": "High",
-    }
-]
+//middelware configuration
+app.use(cors({
+    origin: process.env.ORIGIN,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+}));
+app.use(express.json());
+app.use(express.static("public"));
+app.use(cookieParser);
 
 dbConnect();
 
