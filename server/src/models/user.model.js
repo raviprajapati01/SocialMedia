@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
         trim: true,
         lowercase: true
     },
-    fullname: {
+    fullName: {
         type: String,
         required: true,
         trim: true,
@@ -55,7 +55,7 @@ const userSchema = new mongoose.Schema({
 userSchema.pre("sava", async function (next) {
     if(!this.isModified("password")) return next();
 
-    this.password = bcrypt.hash(this.password, 10)
+    this.password = await bcrypt.hash(this.password, 10)
     next()
 })
 
@@ -89,4 +89,6 @@ userSchema.methods.refressAccessToken = function () {
     )
 }
 
-const User = mongoose.model("User", userSchema);   
+const User = mongoose.model("User", userSchema);  
+
+export {User}

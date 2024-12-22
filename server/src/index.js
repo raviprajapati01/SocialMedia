@@ -8,20 +8,30 @@ dotenv.config();
 import dbConnect from './db/config.js'
 import data from '../data.js';
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 8000;
 
-//middelware configuration
+// middelware configuration
 app.use(cors({
     origin: process.env.ORIGIN,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 }));
 app.use(express.json());
 app.use(express.static("public"));
-app.use(cookieParser);
+app.use(cookieParser());
 
 dbConnect();
+
+
+// Routes import
+import userRouter from './routes/user.routes.js'
+
+//routes declaration
+app.use('/api/v1/user', userRouter);
+
+
+
+
 
 app.get('/', (req, res) => {
     res.json(data);
