@@ -5,9 +5,6 @@ dotenv.config();
 
 const MONGO_URL = process.env.MONGO_URL
 
-console.log("mongo url is ", MONGO_URL);
-
-
 const dbConnect = ()=>{
     if(!MONGO_URL){
         console.log('No mongo url')
