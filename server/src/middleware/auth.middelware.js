@@ -14,7 +14,7 @@ const varifyJwt = asyncHandler(async (req, res, next) => {
         if(!token){
             throw new ApiError(401, "Unouthourized request Token Not Valid")
         }
-        console.log("Jwt Key: ", process.env.REFRESH_TOKEN_SCRETE)
+        // console.log("Jwt Key: ", process.env.REFRESH_TOKEN_SCRETE)
         const decode = jwt.verify(token, process.env.REFRESH_TOKEN_SCRETE)
     
         const user = await User.findById(decode?._id).select(
